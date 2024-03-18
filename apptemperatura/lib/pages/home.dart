@@ -8,9 +8,24 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  TextEditingController txtcelsius = TextEditingController();
+  TextEditingController txtfire = TextEditingController();
+
+  void calcularTemp(){
+    setState(() {
+  double c, f;
+  
+  c = double.parse(txtcelsius.text);
+  f = (c * 9/5) + 32;
+  
+  txtfire.text = f.toStringAsFixed(1);
+});
+
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return  Scaffold(
       backgroundColor: Color.fromARGB(255, 53, 4, 152),
       body: SingleChildScrollView(
         child: SizedBox(
@@ -41,6 +56,7 @@ class _HomeState extends State<Home> {
                   height: 20,
                 ),
                 TextField(
+                  controller: txtcelsius,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       filled: true,
@@ -52,6 +68,7 @@ class _HomeState extends State<Home> {
                   height: 20,
                 ),
                 TextField(
+                  controller: txtfire,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       filled: true,
@@ -66,7 +83,7 @@ class _HomeState extends State<Home> {
                   width: double.infinity,
                   height: 60,
                   child: ElevatedButton(
-                    onPressed: null,
+                    onPressed: calcularTemp,
                     child: Text('Converter'),
                   ),
                 ),
@@ -77,7 +94,10 @@ class _HomeState extends State<Home> {
                   width: double.infinity,
                   height: 60,
                   child: ElevatedButton(
-                    onPressed: null,
+                    onPressed: (){
+                      txtcelsius.clear();
+                      txtfire.clear();
+                    },
                     child: Text('Limpar'),
                   ),
                 ),
